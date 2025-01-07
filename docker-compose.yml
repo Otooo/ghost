@@ -1,0 +1,33 @@
+
+services:
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: go-u
+      RABBITMQ_DEFAULT_PASS: pass
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq # Persiste dados do RabbitMQ
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app                 
+      - /app/vendor            # Exclui a pasta de dependências (opcional)
+    working_dir: /app 
+    command: ["go", "run", "main.go"] # Uso ao desenvolver
+    depends_on:
+      - rabbitmq
+    environment:
+      GO_ENV: development 
+
+volumes:
+  rabbitmq_data:
+    driver: local
