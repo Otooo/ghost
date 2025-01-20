@@ -14,8 +14,13 @@ func SentConfirm(msg string) {
 	log.Printf(" [x] Sent %s\n", msg)
 }
 
-func Message(msg string) {
-	log.Printf(" Message is : %s\n", msg)
+func Message(msg string, typeMSG int) {
+	switch typeMSG {
+	case 1: //
+		log.Printf("Received a message: %s", msg)
+	default:
+		log.Printf(" Message is : %s\n", msg)
+	}
 }
 
 func FatalError(msg string) {
