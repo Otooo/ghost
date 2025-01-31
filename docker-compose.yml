@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     restart: on-failure:3
     ports:
-      - "8000:8000"
+      - "9000:8000"
     volumes:
       - .:/app                 
       - /app/vendor            # Exclui a pasta de dependências (opcional)
